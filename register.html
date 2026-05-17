@@ -1,761 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Employee Onboarding — NexusHR</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexusHR Employee Registration</title>
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg:        #f5f3ee;
-      --surface:   #ffffff;
-      --border:    #e2ddd5;
-      --text:      #1a1714;
-      --muted:     #8a8278;
-      --accent:    #c8622a;
-      --accent-lt: #f5e8df;
-      --accent-dk: #a0481a;
-      --success:   #2d7a4f;
-      --success-lt:#e4f5ec;
-      --error:     #c0392b;
-      --error-lt:  #fdecea;
-      --shadow:    0 4px 24px rgba(26,23,20,0.10);
-      --shadow-lg: 0 16px 48px rgba(26,23,20,0.14);
-      --radius:    14px;
-      --font-head: 'Playfair Display', serif;
-      --font-body: 'Outfit', sans-serif;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
     }
 
-    html { font-size: 15px; }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      align-items: stretch;
+    body{
+      background:#ece8e3;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
     }
 
-    /* ── Left Panel ── */
-    .left-panel {
-      width: 380px;
-      flex-shrink: 0;
-      background: var(--text);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 48px 44px;
-      position: relative;
-      overflow: hidden;
+    .container{
+      width:100%;
+      max-width:1400px;
+      display:grid;
+      grid-template-columns:35% 65%;
+      background:#fff;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1);
     }
 
-    .left-panel::before {
-      content: '';
-      position: absolute;
-      top: -80px; right: -80px;
-      width: 300px; height: 300px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0.12;
-    }
-    .left-panel::after {
-      content: '';
-      position: absolute;
-      bottom: -60px; left: -60px;
-      width: 220px; height: 220px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0.08;
+    /* LEFT SIDE */
+
+    .left{
+      background:#140d09;
+      color:white;
+      padding:50px 40px;
+      position:relative;
+      overflow:hidden;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      z-index: 1;
-    }
-    .brand-icon {
-      width: 42px; height: 42px;
-      background: var(--accent);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-head);
-      font-size: 1.2rem;
-      font-weight: 900;
-      color: #fff;
-      flex-shrink: 0;
-    }
-    .brand-name {
-      font-family: var(--font-head);
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .circle-top{
+      position:absolute;
+      width:220px;
+      height:220px;
+      border-radius:50%;
+      background:#5a2b11;
+      top:-70px;
+      right:-70px;
+      opacity:0.5;
     }
 
-    .panel-body { position: relative; z-index: 1; }
-    .panel-title {
-      font-family: var(--font-head);
-      font-size: 2.4rem;
-      font-weight: 900;
-      line-height: 1.15;
-      letter-spacing: -0.03em;
-      margin-bottom: 20px;
-    }
-    .panel-title span { color: var(--accent); }
-    .panel-desc {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 36px;
+    .circle-bottom{
+      position:absolute;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:#5a2b11;
+      bottom:-70px;
+      left:-70px;
+      opacity:0.5;
     }
 
-    .steps { display: flex; flex-direction: column; gap: 16px; }
-    .step {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-    }
-    .step-num {
-      width: 28px; height: 28px;
-      border: 1.5px solid rgba(200,98,42,0.5);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--accent);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .step-text { font-size: 0.88rem; line-height: 1.5; color: rgba(255,255,255,0.65); }
-    .step-text strong { color: #fff; font-weight: 500; display: block; margin-bottom: 2px; }
-
-    .panel-footer {
-      position: relative; z-index: 1;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.35);
+    .logo{
+      font-size:30px;
+      font-weight:bold;
+      margin-bottom:120px;
+      position:relative;
+      z-index:2;
     }
 
-    /* ── Right Panel / Form ── */
-    .right-panel {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 48px 40px;
-      overflow-y: auto;
+    .logo span{
+      background:#c96a2a;
+      padding:10px 16px;
+      border-radius:12px;
+      margin-right:10px;
     }
 
-    .form-card {
-      width: 100%;
-      max-width: 560px;
-      background: var(--surface);
-      border-radius: 20px;
-      box-shadow: var(--shadow-lg);
-      padding: 44px 48px;
-      animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1);
-    }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: none; }
+    .welcome{
+      position:relative;
+      z-index:2;
     }
 
-    .form-header { margin-bottom: 32px; }
-    .form-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--accent-lt);
-      color: var(--accent);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 99px;
-      margin-bottom: 14px;
-    }
-    .form-tag::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-    .form-title {
-      font-family: var(--font-head);
-      font-size: 1.9rem;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      color: var(--text);
-      line-height: 1.2;
-      margin-bottom: 6px;
-    }
-    .form-subtitle { font-size: 0.88rem; color: var(--muted); }
-
-    /* ── Section Divider ── */
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin: 28px 0 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .welcome h1{
+      font-size:55px;
+      line-height:1.1;
+      margin-bottom:20px;
     }
 
-    /* ── Form Grid ── */
-    .form-row {
-      display: grid;
-      gap: 14px;
-      margin-bottom: 14px;
-    }
-    .form-row.two { grid-template-columns: 1fr 1fr; }
-    .form-row.three { grid-template-columns: 1fr 1fr 1fr; }
-    .form-row.one { grid-template-columns: 1fr; }
-
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.02em;
-    }
-    .form-group label .required { color: var(--accent); margin-left: 2px; }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 11px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      color: var(--text);
-      background: #faf9f7;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-      appearance: none;
-    }
-    .form-group select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8278' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      padding-right: 36px;
-      cursor: pointer;
-    }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      border-color: var(--accent);
-      background: #fff;
-      box-shadow: 0 0 0 3px rgba(200,98,42,0.10);
-    }
-    .form-group input::placeholder,
-    .form-group textarea::placeholder { color: #c5bfb8; }
-    .form-group input.error,
-    .form-group select.error { border-color: var(--error); }
-
-    .form-group textarea { resize: vertical; min-height: 80px; }
-
-    /* input with icon */
-    .input-wrap { position: relative; }
-    .input-wrap input { padding-left: 38px; }
-    .input-icon {
-      position: absolute;
-      left: 12px; top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 0.95rem;
-      pointer-events: none;
+    .welcome h1 span{
+      color:#c96a2a;
     }
 
-    /* ── Submit Button ── */
-    .submit-wrap { margin-top: 32px; }
-    .btn-submit {
-      width: 100%;
-      padding: 14px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-family: var(--font-body);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      letter-spacing: 0.01em;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-submit:hover {
-      background: var(--accent-dk);
-      box-shadow: 0 6px 20px rgba(200,98,42,0.35);
-      transform: translateY(-1px);
-    }
-    .btn-submit:active { transform: translateY(0); }
-    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
-
-    /* ripple */
-    .btn-submit::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.15);
-      opacity: 0;
-      border-radius: 12px;
-      transition: opacity 0.3s;
-    }
-    .btn-submit:active::after { opacity: 1; }
-
-    /* spinner */
-    .spinner {
-      width: 18px; height: 18px;
-      border: 2px solid rgba(255,255,255,0.35);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      display: none;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── Success State ── */
-    .success-card {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px 0;
-      animation: popIn 0.4s cubic-bezier(0.22,1,0.36,1);
-    }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.9); }
-      to   { opacity: 1; transform: none; }
+    .welcome p{
+      color:#d1d1d1;
+      line-height:1.8;
+      font-size:18px;
+      margin-bottom:50px;
     }
 
-    .success-icon {
-      width: 80px; height: 80px;
-      background: var(--success-lt);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 24px;
+    .step{
+      display:flex;
+      gap:15px;
+      margin-bottom:30px;
+      position:relative;
+      z-index:2;
     }
-    .success-icon svg { width: 40px; height: 40px; }
 
-    .success-title {
-      font-family: var(--font-head);
-      font-size: 1.7rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
+    .number{
+      width:35px;
+      height:35px;
+      border-radius:50%;
+      border:1px solid #c96a2a;
+      color:#c96a2a;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-weight:bold;
     }
-    .success-msg {
-      font-size: 0.92rem;
-      color: var(--muted);
-      line-height: 1.6;
-      max-width: 340px;
-      margin: 0 auto 28px;
-    }
-    .success-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--success-lt);
-      color: var(--success);
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 99px;
-      margin-bottom: 28px;
-    }
-    .success-details {
-      background: #faf9f7;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 16px 20px;
-      width: 100%;
-      text-align: left;
-      margin-bottom: 28px;
-    }
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 0;
-      font-size: 0.85rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .detail-row:last-child { border-bottom: none; }
-    .detail-label { color: var(--muted); }
-    .detail-value { font-weight: 500; color: var(--text); }
 
-    .btn-new {
-      padding: 11px 28px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      background: #fff;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text);
-      cursor: pointer;
-      transition: all 0.2s;
+    .step h3{
+      margin-bottom:5px;
     }
-    .btn-new:hover { border-color: var(--accent); color: var(--accent); }
 
-    /* ── Error inline ── */
-    .field-error {
-      font-size: 0.75rem;
-      color: var(--error);
-      margin-top: 3px;
-      display: none;
+    .step p{
+      color:#bfbfbf;
+      line-height:1.6;
     }
-    .field-error.show { display: block; }
 
-    /* ── Toast ── */
-    .toast {
-      position: fixed;
-      bottom: 28px; right: 28px;
-      background: var(--error);
-      color: #fff;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      z-index: 999;
-      opacity: 0;
-      transform: translateY(12px);
-      transition: all 0.3s;
-      pointer-events: none;
-    }
-    .toast.show { opacity: 1; transform: none; }
+    /* RIGHT SIDE */
 
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .left-panel { display: none; }
-      .right-panel { padding: 24px 16px; }
-      .form-card { padding: 32px 24px; }
-      .form-row.two,
-      .form-row.three { grid-template-columns: 1fr; }
+    .right{
+      background:#f8f6f3;
+      padding:50px;
     }
-    @media (max-width: 480px) {
-      .form-card { border-radius: 16px; }
+
+    .badge{
+      display:inline-block;
+      background:#f3ddd0;
+      color:#b85d1f;
+      padding:8px 18px;
+      border-radius:20px;
+      font-size:14px;
+      font-weight:bold;
+      margin-bottom:20px;
     }
+
+    .right h1{
+      font-size:45px;
+      margin-bottom:10px;
+      color:#222;
+    }
+
+    .sub{
+      color:#777;
+      margin-bottom:40px;
+    }
+
+    .section-title{
+      margin:35px 0 20px;
+      padding-bottom:10px;
+      border-bottom:1px solid #ddd;
+      font-size:14px;
+      color:#888;
+      font-weight:bold;
+      letter-spacing:1px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+    }
+
+    .full{
+      grid-column:1/3;
+    }
+
+    .form-group{
+      margin-bottom:20px;
+    }
+
+    label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:600;
+      color:#555;
+    }
+
+    input,
+    select,
+    textarea{
+      width:100%;
+      padding:15px;
+      border:1px solid #ddd;
+      border-radius:12px;
+      outline:none;
+      background:white;
+      font-size:15px;
+    }
+
+    textarea{
+      height:120px;
+      resize:none;
+    }
+
+    button{
+      width:100%;
+      padding:18px;
+      border:none;
+      border-radius:12px;
+      background:#c96a2a;
+      color:white;
+      font-size:18px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+      margin-top:10px;
+    }
+
+    button:hover{
+      background:#aa541e;
+    }
+
+    /* SUCCESS PAGE */
+
+    .success-page{
+      display:none;
+      width:100%;
+      max-width:750px;
+      background:#f8f6f3;
+      border-radius:20px;
+      padding:50px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .success-icon{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:#dff1e5;
+      color:green;
+      font-size:55px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin:0 auto 25px;
+    }
+
+    .success-badge{
+      display:inline-block;
+      background:#dff1e5;
+      color:green;
+      padding:10px 20px;
+      border-radius:25px;
+      margin-bottom:20px;
+      font-weight:bold;
+    }
+
+    .success-page h1{
+      font-size:45px;
+      margin-bottom:20px;
+    }
+
+    .success-page p{
+      color:#666;
+      line-height:1.8;
+      margin-bottom:30px;
+    }
+
+    .summary{
+      background:white;
+      border:1px solid #ddd;
+      border-radius:15px;
+      padding:20px;
+      text-align:left;
+      margin-bottom:30px;
+    }
+
+    .summary-item{
+      display:flex;
+      justify-content:space-between;
+      padding:12px 0;
+      border-bottom:1px solid #eee;
+    }
+
+    .summary-item:last-child{
+      border-bottom:none;
+    }
+
+    .register-again{
+      width:auto;
+      padding:15px 40px;
+      background:white;
+      color:black;
+      border:1px solid #ccc;
+    }
+
+    @media(max-width:1000px){
+
+      .container{
+        grid-template-columns:1fr;
+      }
+
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .full{
+        grid-column:auto;
+      }
+
+    }
+
   </style>
 </head>
+
 <body>
 
-  <!-- Left branding panel -->
-  <aside class="left-panel">
-    <div class="brand">
-      <div class="brand-icon">N</div>
-      <span class="brand-name">NexusHR</span>
-    </div>
+  <!-- FORM PAGE -->
 
-    <div class="panel-body">
-      <h1 class="panel-title">Welcome to the<br><span>team.</span></h1>
-      <p class="panel-desc">Complete this onboarding form to get your employee profile set up and access to all company systems.</p>
+  <div class="container" id="formContainer">
+
+    <!-- LEFT -->
+
+    <div class="left">
+
+      <div class="circle-top"></div>
+      <div class="circle-bottom"></div>
+
+      <div class="logo">
+        <span>N</span> NexusHR
+      </div>
+
+      <div class="welcome">
+
+        <h1>
+          Welcome to the <span>team.</span>
+        </h1>
+
+        <p>
+          Complete this onboarding form to get your employee
+          profile setup and access to all company systems.
+        </p>
+
+      </div>
+
       <div class="steps">
+
         <div class="step">
-          <div class="step-num">1</div>
-          <div class="step-text"><strong>Fill your details</strong>Provide your personal and role information.</div>
+
+          <div class="number">1</div>
+
+          <div>
+            <h3>Fill your details</h3>
+            <p>Provide your personal and role information.</p>
+          </div>
+
         </div>
+
         <div class="step">
-          <div class="step-num">2</div>
-          <div class="step-text"><strong>Submit the form</strong>HR will review and activate your account.</div>
+
+          <div class="number">2</div>
+
+          <div>
+            <h3>Submit the form</h3>
+            <p>HR will review and activate your account.</p>
+          </div>
+
         </div>
+
         <div class="step">
-          <div class="step-num">3</div>
-          <div class="step-text"><strong>Get onboarded</strong>Receive your credentials and system access.</div>
+
+          <div class="number">3</div>
+
+          <div>
+            <h3>Get onboarded</h3>
+            <p>Receive your credentials and system access.</p>
+          </div>
+
         </div>
+
       </div>
+
     </div>
 
-    <div class="panel-footer">© 2026 NexusHR · All rights reserved</div>
-  </aside>
+    <!-- RIGHT -->
 
-  <!-- Right form panel -->
-  <main class="right-panel">
-    <div class="form-card" id="formCard">
+    <div class="right">
 
-      <!-- Form header -->
-      <div class="form-header">
-        <div class="form-tag">New Employee</div>
-        <h2 class="form-title">Employee Registration</h2>
-        <p class="form-subtitle">Fields marked <span style="color:var(--accent)">*</span> are required</p>
-      </div>
+      <div class="badge">● NEW EMPLOYEE</div>
 
-      <!-- Form body -->
-      <form id="registerForm" novalidate>
+      <h1>Employee Registration</h1>
 
-        <div class="section-label">Personal Information</div>
+      <p class="sub">Fields marked * are required</p>
 
-        <div class="form-row two">
-          <div class="form-group">
-            <label>First Name <span class="required">*</span></label>
-            <input type="text" id="firstName" placeholder="Arjun"/>
-            <span class="field-error" id="err-firstName">First name is required.</span>
-          </div>
-          <div class="form-group">
-            <label>Last Name <span class="required">*</span></label>
-            <input type="text" id="lastName" placeholder="Mehta"/>
-            <span class="field-error" id="err-lastName">Last name is required.</span>
-          </div>
+      <form id="employeeForm">
+
+        <div class="section-title">
+          PERSONAL INFORMATION
         </div>
 
-        <div class="form-row one">
-          <div class="form-group">
-            <label>Email Address <span class="required">*</span></label>
-            <div class="input-wrap">
-              <span class="input-icon">✉</span>
-              <input type="email" id="email" placeholder="arjun.mehta@company.com"/>
-            </div>
-            <span class="field-error" id="err-email">Valid email is required.</span>
-          </div>
-        </div>
+        <div class="form-grid">
 
-        <div class="form-row two">
           <div class="form-group">
+
+            <label>First Name *</label>
+
+            <input
+              type="text"
+              id="firstName"
+              placeholder="Arjun"
+              required
+            >
+
+          </div>
+
+          <div class="form-group">
+
+            <label>Last Name *</label>
+
+            <input
+              type="text"
+              id="lastName"
+              placeholder="Mehta"
+              required
+            >
+
+          </div>
+
+          <div class="form-group full">
+
+            <label>Email Address *</label>
+
+            <input
+              type="email"
+              id="email"
+              placeholder="example@gmail.com"
+              required
+            >
+
+          </div>
+
+          <div class="form-group">
+
             <label>Phone Number</label>
-            <div class="input-wrap">
-              <span class="input-icon">📞</span>
-              <input type="tel" id="phone" placeholder="+91 98765 43210"/>
-            </div>
+
+            <input
+              type="text"
+              placeholder="+91 9876543210"
+            >
+
           </div>
+
           <div class="form-group">
+
             <label>Date of Birth</label>
-            <input type="date" id="dob"/>
+
+            <input type="date">
+
           </div>
+
         </div>
 
-        <div class="section-label">Role & Department</div>
+        <div class="section-title">
+          ROLE & DEPARTMENT
+        </div>
 
-        <div class="form-row two">
+        <div class="form-grid">
+
           <div class="form-group">
-            <label>Department <span class="required">*</span></label>
-            <select id="dept">
-              <option value="">Select department</option>
+
+            <label>Department *</label>
+
+            <select id="department">
+
               <option>Engineering</option>
-              <option>Design</option>
-              <option>Marketing</option>
-              <option>Sales</option>
               <option>HR</option>
               <option>Finance</option>
-              <option>Operations</option>
+              <option>Marketing</option>
+
             </select>
-            <span class="field-error" id="err-dept">Please select a department.</span>
-          </div>
-          <div class="form-group">
-            <label>Job Title <span class="required">*</span></label>
-            <input type="text" id="jobTitle" placeholder="Software Engineer"/>
-            <span class="field-error" id="err-jobTitle">Job title is required.</span>
-          </div>
-        </div>
 
-        <div class="form-row two">
+          </div>
+
           <div class="form-group">
+
+            <label>Job Title *</label>
+
+            <input
+              type="text"
+              id="jobTitle"
+              placeholder="Software Engineer"
+            >
+
+          </div>
+
+          <div class="form-group">
+
             <label>Employee ID</label>
-            <input type="text" id="empId" placeholder="EMP-2026-009"/>
-          </div>
-          <div class="form-group">
-            <label>Start Date</label>
-            <input type="date" id="startDate"/>
-          </div>
-        </div>
 
-        <div class="form-row one">
+            <input
+              type="text"
+              id="employeeId"
+              value="EMP-2026-001"
+            >
+
+          </div>
+
           <div class="form-group">
+
+            <label>Start Date</label>
+
+            <input type="date">
+
+          </div>
+
+          <div class="form-group full">
+
             <label>Employment Type</label>
-            <select id="empType">
-              <option value="">Select type</option>
+
+            <select id="employmentType">
+
               <option>Full-time</option>
               <option>Part-time</option>
-              <option>Contract</option>
               <option>Intern</option>
+              <option>Contract</option>
+
             </select>
+
           </div>
+
         </div>
 
-        <div class="section-label">Additional Info</div>
-
-        <div class="form-row one">
-          <div class="form-group">
-            <label>Address</label>
-            <input type="text" id="address" placeholder="123 Main Street, Hyderabad"/>
-          </div>
+        <div class="section-title">
+          ADDITIONAL INFO
         </div>
 
-        <div class="form-row one">
-          <div class="form-group">
-            <label>Notes / Remarks</label>
-            <textarea id="notes" placeholder="Any additional information about this employee..."></textarea>
-          </div>
+        <div class="form-group">
+
+          <label>Address</label>
+
+          <input
+            type="text"
+            placeholder="123 Main Street"
+          >
+
         </div>
 
-        <div class="submit-wrap">
-          <button type="button" class="btn-submit" id="submitBtn" onclick="handleSubmit()">
-            <div class="spinner" id="spinner"></div>
-            <span id="btnText">Register Employee</span>
-            <span id="btnArrow">→</span>
-          </button>
+        <div class="form-group">
+
+          <label>Notes / Remarks</label>
+
+          <textarea
+            placeholder="Any additional information..."
+          ></textarea>
+
         </div>
+
+        <button type="submit">
+          Register Employee →
+        </button>
 
       </form>
 
-      <!-- Success state (hidden initially) -->
-      <div class="success-card" id="successCard">
-        <div class="success-icon">
-          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="20" fill="#2d7a4f" opacity="0.12"/>
-            <path d="M12 20.5l6 6 10-12" stroke="#2d7a4f" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="success-badge">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#2d7a4f"/><path d="M4 7l2 2 4-4" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Registration Successful
-        </div>
-        <h3 class="success-title" id="successName">Welcome aboard!</h3>
-        <p class="success-msg">The employee has been successfully registered. HR will review and send login credentials within 24 hours.</p>
-        <div class="success-details" id="successDetails"></div>
-        <button class="btn-new" onclick="resetForm()">+ Register Another Employee</button>
+    </div>
+
+  </div>
+
+  <!-- SUCCESS PAGE -->
+
+  <div class="success-page" id="successPage">
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <div class="success-badge">
+      Registration Successful
+    </div>
+
+    <h1 id="welcomeText">
+      Welcome!
+    </h1>
+
+    <p>
+      The employee has been successfully registered.
+      HR will review and send login credentials within 24 hours.
+    </p>
+
+    <div class="summary">
+
+      <div class="summary-item">
+        <span>Employee ID</span>
+        <strong id="sEmployeeId"></strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Name</span>
+        <strong id="sName"></strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Email</span>
+        <strong id="sEmail"></strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Department</span>
+        <strong id="sDepartment"></strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Job Title</span>
+        <strong id="sJobTitle"></strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Type</span>
+        <strong id="sType"></strong>
       </div>
 
     </div>
-  </main>
 
-  <div class="toast" id="toast"></div>
+    <button
+      class="register-again"
+      onclick="location.reload()"
+    >
+      + Register Another Employee
+    </button>
+
+  </div>
 
   <script>
-    function validate() {
-      const fields = [
-        { id: 'firstName', errId: 'err-firstName', check: v => v.trim() !== '' },
-        { id: 'lastName',  errId: 'err-lastName',  check: v => v.trim() !== '' },
-        { id: 'email',     errId: 'err-email',      check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
-        { id: 'dept',      errId: 'err-dept',       check: v => v !== '' },
-        { id: 'jobTitle',  errId: 'err-jobTitle',   check: v => v.trim() !== '' },
-      ];
-      let valid = true;
-      fields.forEach(f => {
-        const el = document.getElementById(f.id);
-        const err = document.getElementById(f.errId);
-        if (!f.check(el.value)) {
-          el.classList.add('error');
-          err.classList.add('show');
-          valid = false;
-        } else {
-          el.classList.remove('error');
-          err.classList.remove('show');
-        }
-      });
-      return valid;
-    }
 
-    // Clear error on input
-    ['firstName','lastName','email','dept','jobTitle'].forEach(id => {
-      const el = document.getElementById(id);
-      el.addEventListener('input', () => {
-        el.classList.remove('error');
-        const err = document.getElementById('err-' + id);
-        if (err) err.classList.remove('show');
-      });
+    const form = document.getElementById("employeeForm");
+
+    form.addEventListener("submit", function(e){
+
+      e.preventDefault();
+
+      const firstName =
+        document.getElementById("firstName").value;
+
+      const lastName =
+        document.getElementById("lastName").value;
+
+      const email =
+        document.getElementById("email").value;
+
+      const department =
+        document.getElementById("department").value;
+
+      const jobTitle =
+        document.getElementById("jobTitle").value;
+
+      const employeeId =
+        document.getElementById("employeeId").value;
+
+      const employmentType =
+        document.getElementById("employmentType").value;
+
+      // HIDE FORM
+      document.getElementById("formContainer").style.display = "none";
+
+      // SHOW SUCCESS PAGE
+      document.getElementById("successPage").style.display = "block";
+
+      // SET VALUES
+      document.getElementById("welcomeText").innerHTML =
+        "Welcome, " + firstName + " " + lastName + "!";
+
+      document.getElementById("sEmployeeId").innerText =
+        employeeId;
+
+      document.getElementById("sName").innerText =
+        firstName + " " + lastName;
+
+      document.getElementById("sEmail").innerText =
+        email;
+
+      document.getElementById("sDepartment").innerText =
+        department;
+
+      document.getElementById("sJobTitle").innerText =
+        jobTitle;
+
+      document.getElementById("sType").innerText =
+        employmentType;
+
     });
 
-    function handleSubmit() {
-      if (!validate()) {
-        showToast('Please fix the highlighted fields.');
-        return;
-      }
-      const btn    = document.getElementById('submitBtn');
-      const spinner= document.getElementById('spinner');
-      const btnTxt = document.getElementById('btnText');
-      const btnArr = document.getElementById('btnArrow');
-
-      btn.disabled = true;
-      spinner.style.display = 'block';
-      btnTxt.textContent = 'Registering...';
-      btnArr.style.display = 'none';
-
-      setTimeout(() => {
-        showSuccess();
-      }, 1500);
-    }
-
-    function showSuccess() {
-      const first   = document.getElementById('firstName').value.trim();
-      const last    = document.getElementById('lastName').value.trim();
-      const email   = document.getElementById('email').value.trim();
-      const dept    = document.getElementById('dept').value;
-      const job     = document.getElementById('jobTitle').value.trim();
-      const empId   = document.getElementById('empId').value.trim() || 'EMP-' + Math.floor(1000 + Math.random()*9000);
-      const empType = document.getElementById('empType').value || 'Full-time';
-      const start   = document.getElementById('startDate').value;
-
-      document.getElementById('successName').textContent = `Welcome, ${first} ${last}!`;
-
-      const rows = [
-        { label: 'Employee ID',  value: empId },
-        { label: 'Name',         value: `${first} ${last}` },
-        { label: 'Email',        value: email },
-        { label: 'Department',   value: dept },
-        { label: 'Job Title',    value: job },
-        { label: 'Type',         value: empType },
-      ];
-      if (start) rows.push({ label: 'Start Date', value: new Date(start).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' }) });
-
-      document.getElementById('successDetails').innerHTML = rows.map(r => `
-        <div class="detail-row">
-          <span class="detail-label">${r.label}</span>
-          <span class="detail-value">${r.value}</span>
-        </div>`).join('');
-
-      document.getElementById('registerForm').style.display = 'none';
-      document.querySelector('.form-header').style.display = 'none';
-      const sc = document.getElementById('successCard');
-      sc.style.display = 'flex';
-    }
-
-    function resetForm() {
-      document.getElementById('registerForm').reset();
-      document.getElementById('registerForm').style.display = 'block';
-      document.querySelector('.form-header').style.display = 'block';
-      document.getElementById('successCard').style.display = 'none';
-
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = false;
-      document.getElementById('spinner').style.display = 'none';
-      document.getElementById('btnText').textContent = 'Register Employee';
-      document.getElementById('btnArrow').style.display = 'inline';
-
-      ['firstName','lastName','email','dept','jobTitle'].forEach(id => {
-        document.getElementById(id).classList.remove('error');
-      });
-      document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show'));
-    }
-
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3000);
-    }
   </script>
+
 </body>
 </html>
