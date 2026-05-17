@@ -1,5 +1,5 @@
 FROM nginxinc/nginx-unprivileged:latest
 
-COPY index.html /usr/share/nginx/html/index.html
+COPY register.html /usr/share/nginx/html/index.html
 
 EXPOSE 8080
